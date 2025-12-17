@@ -1,6 +1,6 @@
 # Web Framework Comparison Matrix
 
-**Analysis Date:** December 2024/2025 **Frameworks Analyzed:** 7
+**Analysis Date:** December 2024/2025 **Frameworks Analyzed:** 8
 
 ---
 
@@ -14,6 +14,7 @@ architectural approaches:
 | **Astro**           | Content meta-framework     | Content-heavy websites, blogs, marketing sites    |
 | **Elysia**          | Backend API framework      | High-performance Bun APIs, real-time applications |
 | **Fresh**           | Full-stack framework       | Deno-native apps, minimal JS footprint            |
+| **Hono**            | Backend API framework      | Multi-runtime APIs, edge computing, serverless    |
 | **Next.js**         | Full-stack React framework | Production React apps, enterprise applications    |
 | **Redwood SDK**     | Edge-native framework      | Cloudflare Workers apps, real-time edge apps      |
 | **Remix 3**         | Composable web framework   | Portable web apps, standards-first development    |
@@ -28,6 +29,7 @@ architectural approaches:
 | Astro           | 5.16.6        | Node.js (>=18.20.8)             | Multi-framework (React, Vue, Svelte, Solid, Preact) | Vite                           | TypeScript       |
 | Elysia          | 1.4.19        | Bun (primary), Node.js, Workers | N/A (backend)                                       | tsup                           | TypeScript       |
 | Fresh           | 2.2.0         | Deno                            | Preact + @preact/signals                            | ESBuild + Vite plugin          | TypeScript       |
+| Hono            | 4.11.1        | Multi-runtime (all major)       | Built-in JSX (optional)                             | esbuild                        | TypeScript       |
 | Next.js         | 16.1.0-canary | Node.js, Edge Runtime           | React 19                                            | Webpack 5 / Turbopack / Rspack | TypeScript       |
 | Redwood SDK     | 1.0.0-beta.41 | Cloudflare Workers              | React 19                                            | Vite 7.x                       | TypeScript       |
 | Remix 3         | remix-the-web | Node.js, Bun, Deno, Workers     | Custom JSX runtime                                  | tsgo + esbuild                 | TypeScript       |
@@ -44,6 +46,7 @@ architectural approaches:
 | Astro           | ✅  | ✅  | ❌  |    ✅     |   ✅    | ❌  | ❌  |
 | Elysia          | N/A | N/A | N/A |    N/A    |   N/A   | N/A | N/A |
 | Fresh           | ✅  | ✅  | ❌  |    ✅     |   ✅    | ❌  | ❌  |
+| Hono            | ✅  | ✅  | ❌  |    ✅     |   ❌    | ❌  | ❌  |
 | Next.js         | ✅  | ✅  | ✅  |    ✅     |   ❌    | ✅  | ✅  |
 | Redwood SDK     | ❌  | ✅  | ❌  |    ✅     |   ❌    | ✅  | ❌  |
 | Remix 3         | ❌  | ✅  | ❌  |    ✅     |   ❌    | ❌  | ❌  |
@@ -60,6 +63,7 @@ Pre-Rendering
 | Astro           | File-based   | `[slug].astro`    | `[...path].astro`    | ❌           | ✅      | ✅              |
 | Elysia          | Config-based | `.get('/:id')`    | `.get('/*')`         | ❌           | ❌      | ✅ (hooks)      |
 | Fresh           | File-based   | `[slug].tsx`      | `[...path].tsx`      | `(group)`    | ✅      | ✅              |
+| Hono            | Config-based | `.get('/:id')`    | `.get('/*')`         | ❌           | ❌      | ✅              |
 | Next.js         | File-based   | `[slug]/page.tsx` | `[...slug]/page.tsx` | `(group)`    | ✅      | ✅              |
 | Redwood SDK     | Config-based | `/users/:id`      | `/files/*`           | ❌           | ✅      | ✅              |
 | Remix 3         | Config-based | `/posts/:slug`    | `/files/*path`       | ❌           | ❌      | ✅              |
@@ -72,6 +76,7 @@ Pre-Rendering
 | Astro           | Selective (Islands) | Only `client:*` components hydrate; zero JS by default     |
 | Elysia          | N/A                 | Backend framework, no client hydration                     |
 | Fresh           | Selective (Islands) | Only `islands/` directory components hydrate               |
+| Hono            | N/A                 | Backend framework, optional JSX for SSR                    |
 | Next.js         | Full + RSC          | RSC components stay server-only; client components hydrate |
 | Redwood SDK     | RSC + Streaming     | RSC payload streams; selective component hydration         |
 | Remix 3         | Selective           | `hydrated()` function marks interactive components         |
@@ -88,6 +93,7 @@ Pre-Rendering
 | Astro           | Frontmatter + Actions | ✅ `defineAction()` | ✅            | Zod integration              |
 | Elysia          | Route handlers        | ❌                  | ✅            | TypeBox (built-in)           |
 | Fresh           | Handlers export       | ❌                  | ✅            | Manual                       |
+| Hono            | Route handlers        | ❌                  | ✅            | Validator middleware (any)   |
 | Next.js         | Loaders + Actions     | ✅ `'use server'`   | ✅            | Any (Zod common)             |
 | Redwood SDK     | Route handlers        | ✅ `'use server'`   | ✅            | Manual (Zod recommended)     |
 | Remix 3         | Route handlers        | ❌                  | ✅            | Manual                       |
@@ -100,6 +106,7 @@ Pre-Rendering
 | Astro           | Build-time           | CDN/Server             | Adapter-dependent     | ❌  |
 | Elysia          | Manual               | Manual                 | Manual                | ❌  |
 | Fresh           | BUILD_ID versioned   | 1-year static assets   | Build-based           | ❌  |
+| Hono            | Manual/Cache API     | Manual                 | Manual                | ❌  |
 | Next.js         | Incremental Cache    | ISR                    | `revalidatePath/Tag`  | ✅  |
 | Redwood SDK     | Edge/Durable Objects | CDN                    | Manual                | ❌  |
 | Remix 3         | Manual               | Manual                 | Manual                | ❌  |
@@ -116,6 +123,7 @@ Pre-Rendering
 | Astro           |      ✅      |     ✅      |       ✅ (Islands)        |      ✅      |
 | Elysia          |     N/A      |     N/A     |            N/A            |     N/A      |
 | Fresh           |      ✅      |     ✅      |       ✅ (Islands)        |      ✅      |
+| Hono            |     N/A      |     N/A     |            N/A            |     N/A      |
 | Next.js         |      ✅      |     ✅      |     ✅ (`dynamic()`)      |      ✅      |
 | Redwood SDK     |      ✅      |     ✅      |     ✅ (client refs)      |      ✅      |
 | Remix 3         | ✅ (esbuild) |     ✅      |            ❌             |    Manual    |
@@ -128,6 +136,7 @@ Pre-Rendering
 | Astro           |      ✅       |        ✅         |   ✅ (hover)    | ✅ (`modulepreload`) |
 | Elysia          |      N/A      |        N/A        |       N/A       |         N/A          |
 | Fresh           |      ❌       |        ❌         |       ❌        |  ✅ (Link headers)   |
+| Hono            |      N/A      |        N/A        |       N/A       |         N/A          |
 | Next.js         |      ✅       |        ✅         |       ❌        |          ✅          |
 | Redwood SDK     |      ❌       |        ❌         |       ❌        |          ❌          |
 | Remix 3         |      ❌       |        ❌         |       ❌        |          ❌          |
@@ -140,6 +149,7 @@ Pre-Rendering
 | Astro           |       ✅       |       ❌       |    ❌    |           ✅           |
 | Elysia          |       ❌       |       ✅       |   N/A    |          N/A           |
 | Fresh           |       ✅       |       ❌       |    ❌    |           ✅           |
+| Hono            |       ✅       |       ✅       |   N/A    |          N/A           |
 | Next.js         |       ✅       |       ✅       |    ✅    |        ✅ (PPR)        |
 | Redwood SDK     |       ✅       |       ✅       |    ✅    | ✅ (6-phase stitching) |
 | Remix 3         |       ✅       |       ❌       |    ❌    |           ❌           |
@@ -156,6 +166,7 @@ Pre-Rendering
 | Astro           |      ✅       |    `html-escaper`     | HTMLString class for safe content      |
 | Elysia          |      N/A      |          N/A          | Backend only                           |
 | Fresh           |      ✅       |      `@std/html`      | Preact built-in + `escapeHtml()`       |
+| Hono            |      ✅       |   `escapeToBuffer`    | JSX auto-escaping, HtmlEscapedString   |
 | Next.js         |      ✅       |    React built-in     | JSX auto-escaping                      |
 | Redwood SDK     |      ✅       |    React built-in     | JSX auto-escaping                      |
 | Remix 3         |      ✅       | SafeHtml branded type | `html` template tag escapes by default |
@@ -168,6 +179,7 @@ Pre-Rendering
 | Astro           |         Manual         |    ✅     |        ❌        |     Zod schemas      |             ❌              |
 | Elysia          |         Manual         |    ❌     |        ❌        |   TypeBox built-in   |             ❌              |
 | Fresh           |    ✅ (middleware)     |    ✅     |        ❌        |        Manual        |             ❌              |
+| Hono            |    ✅ (middleware)     |    ✅     |        ❌        | Validator middleware |             ❌              |
 | Next.js         | ✅ (Origin validation) |    ✅     |        ❌        |        Manual        | ✅ (AES-GCM for bound args) |
 | Redwood SDK     |         Manual         |    ✅     |        ❌        |        Manual        |             ❌              |
 | Remix 3         |         Manual         |    ❌     | ✅ (HMAC-SHA256) |        Manual        |             ❌              |
@@ -184,6 +196,7 @@ Pre-Rendering
 | Astro           |          ❌           |        ❌        | ✅ (Content Collections) |          ✅           |
 | Elysia          |          ✅           |        ✅        |            ✅            | ✅ (7 generic params) |
 | Fresh           |          ❌           |        ❌        |            ❌            |          ❌           |
+| Hono            |          ✅           |        ✅        |            ✅            |   ✅ (RPC client)     |
 | Next.js         |        Partial        |     Partial      |            ✅            |          ❌           |
 | Redwood SDK     | ✅ (`linkFor<App>()`) |        ✅        |            ✅            |          ❌           |
 | Remix 3         |          ✅           |        ✅        |            ❌            |          ❌           |
@@ -196,6 +209,7 @@ Pre-Rendering
 | Astro           |        ✅         |   ✅ (Vite)    | ✅  | ✅ (Toolbar) |      ✅       |
 | Elysia          |        ✅         |       ❌       | ❌  |      ❌      |      ❌       |
 | Fresh           |        ✅         |   ✅ (Deno)    | ✅  |      ❌      |      ✅       |
+| Hono            |  ❌ (runtime)     |       ❌       | ✅  |      ❌      |      ❌       |
 | Next.js         | ✅ (Fast Refresh) |       ✅       | ✅  |      ❌      |      ✅       |
 | Redwood SDK     |  ✅ (RSC-aware)   | ✅ (Miniflare) | ✅  |      ❌      |      ❌       |
 | Remix 3         |  ❌ (tsx watch)   |       ✅       | ❌  |      ❌      |      ❌       |
@@ -208,6 +222,7 @@ Pre-Rendering
 | Astro           | `npm create astro`    | `astro dev`     | `astro build`     | `astro preview`   |
 | Elysia          | `bun create elysia`   | `bun run dev`   | `bun build`       | `bun run start`   |
 | Fresh           | `deno init --fresh`   | `deno task dev` | `deno task build` | `deno task start` |
+| Hono            | `npm create hono`     | `tsx watch`     | `tsc`             | Runtime-specific  |
 | Next.js         | `npx create-next-app` | `next dev`      | `next build`      | `next start`      |
 | Redwood SDK     | Template-based        | `npm run dev`   | `npm run build`   | `npm run release` |
 | Remix 3         | N/A                   | `tsx watch`     | `pnpm build`      | `node server.js`  |
@@ -224,6 +239,7 @@ Pre-Rendering
 | Astro           |  ✅   | ✅  |   ✅   |  ✅   |   ✅   |   ✅   |
 | Elysia          |  ❌   | ❌  |   ❌   |  ❌   |   ❌   |   ❌   |
 | Fresh           |  ❌   | ❌  |   ❌   |  ❌   |   ✅   |   ❌   |
+| Hono            |  ❌   | ❌  |   ❌   |  ❌   |   ❌   |   ❌   |
 | Next.js         |  ✅   | ❌  |   ❌   |  ❌   |   ❌   |   ❌   |
 | Redwood SDK     |  ✅   | ❌  |   ❌   |  ❌   |   ❌   |   ❌   |
 | Remix 3         |  ❌   | ❌  |   ❌   |  ❌   |   ❌   |   ❌   |
@@ -236,6 +252,7 @@ Pre-Rendering
 | Astro           |   ✅    |  ✅  | ✅  |     ✅     |   ✅   |   ✅    |   ✅   |
 | Elysia          |   ✅    |  ❌  | ✅  |     ✅     |   ❌   |   ❌    |   ✅   |
 | Fresh           |   ❌    |  ✅  | ❌  |     ❌     |   ❌   |   ❌    |   ✅   |
+| Hono            |   ✅    |  ✅  | ✅  |     ✅     |   ✅   |   ✅    |   ✅   |
 | Next.js         |   ✅    |  ❌  | ❌  |     ✅     |   ✅   |   ✅    |   ✅   |
 | Redwood SDK     |   ❌    |  ❌  | ❌  |     ✅     |   ❌   |   ❌    |   ❌   |
 | Remix 3         |   ✅    |  ✅  | ✅  |     ✅     |   ❌   |   ❌    |   ✅   |
@@ -252,6 +269,7 @@ Pre-Rendering
 | Astro           | Vite            | -                        | Fast        | Vite HMR     |
 | Elysia          | tsup            | Bun native               | Very Fast   | Bun watch    |
 | Fresh           | ESBuild         | Vite plugin              | Fast        | WebSocket    |
+| Hono            | esbuild         | -                        | Very Fast   | Runtime      |
 | Next.js         | Webpack 5       | Turbopack, Rspack        | Medium      | Fast Refresh |
 | Redwood SDK     | Vite 7.x        | -                        | Fast        | RSC HMR      |
 | Remix 3         | tsgo + esbuild  | -                        | Fast        | File watch   |
@@ -264,6 +282,7 @@ Pre-Rendering
 | Astro           |      ❌       |     12+     |       ✅        |       ❌        |
 | Elysia          |      11       |     ❌      |       ❌        |       ❌        |
 | Fresh           |      ❌       |     ❌      |       ❌        |       ❌        |
+| Hono            |      ✅       |     ❌      |       ❌        |       ❌        |
 | Next.js         |      ✅       |     ❌      |       ✅        |       ❌        |
 | Redwood SDK     |      ❌       |     ❌      |       ❌        |       ❌        |
 | Remix 3         |      ✅       |     ❌      |       ❌        |       ❌        |
@@ -281,10 +300,10 @@ Pre-Rendering
 | **Blog/Documentation**     | Astro                    | Next.js                 |
 | **E-commerce**             | Next.js                  | TanStack Router + Start |
 | **Dashboard/Admin**        | Next.js, TanStack Router | Remix 3                 |
-| **High-Performance API**   | Elysia                   | Remix 3                 |
-| **Real-time Application**  | Elysia, Redwood SDK      | Next.js                 |
-| **Edge-First App**         | Redwood SDK              | Remix 3                 |
-| **Deno-Native App**        | Fresh                    | Remix 3                 |
+| **High-Performance API**   | Hono, Elysia             | Remix 3                 |
+| **Real-time Application**  | Elysia, Redwood SDK      | Hono                    |
+| **Edge-First App**         | Hono, Redwood SDK        | Remix 3                 |
+| **Deno-Native App**        | Fresh, Hono              | Remix 3                 |
 | **Multi-Framework Site**   | Astro                    | -                       |
 | **Type-Safe Routing**      | TanStack Router          | Remix 3                 |
 | **Minimal JS Footprint**   | Astro, Fresh             | Remix 3                 |
@@ -294,12 +313,12 @@ Pre-Rendering
 | Team Background        | Recommended Frameworks                |
 | ---------------------- | ------------------------------------- |
 | React Experts          | Next.js, TanStack Router, Redwood SDK |
-| Backend-First          | Elysia, Remix 3                       |
-| Standards-First        | Remix 3, Fresh                        |
-| TypeScript Enthusiasts | TanStack Router, Elysia               |
+| Backend-First          | Hono, Elysia, Remix 3                 |
+| Standards-First        | Hono, Remix 3, Fresh                  |
+| TypeScript Enthusiasts | TanStack Router, Hono, Elysia         |
 | Content Creators       | Astro                                 |
-| Cloudflare Users       | Redwood SDK, Elysia                   |
-| Deno Users             | Fresh                                 |
+| Cloudflare Users       | Hono, Redwood SDK, Elysia             |
+| Deno Users             | Hono, Fresh                           |
 
 ---
 
@@ -314,22 +333,22 @@ Pre-Rendering
 
 ### Quick Reference
 
-| Feature          | Astro | Elysia | Fresh | Next.js | Redwood SDK | Remix 3 | TanStack |
-| ---------------- | :---: | :----: | :---: | :-----: | :---------: | :-----: | :------: |
-| SSR              |  ✅   |  N/A   |  ✅   |   ✅    |     ✅      |   ✅    |    ✅    |
-| SSG              |  ✅   |  N/A   |  ✅   |   ✅    |     ❌      |   ❌    |    ✅    |
-| ISR              |  ❌   |  N/A   |  ❌   |   ✅    |     ❌      |   ❌    |    ❌    |
-| Islands          |  ✅   |  N/A   |  ✅   |   ❌    |     ❌      |   ❌    |    ❌    |
-| RSC              |  ❌   |  N/A   |  ❌   |   ✅    |     ✅      |   ❌    |    ❌    |
-| Streaming        |  ✅   |   ✅   |  ✅   |   ✅    |     ✅      |   ✅    |    ✅    |
-| File Routing     |  ✅   |   ❌   |  ✅   |   ✅    |     ❌      |   ❌    |    ✅    |
-| Type-Safe Routes |  ❌   |   ✅   |  ❌   |   ⚡    |     ✅      |   ✅    |    ✅    |
-| Server Actions   |  ✅   |  N/A   |  ❌   |   ✅    |     ✅      |   ❌    |    ⚡    |
-| WebSocket        |  ❌   |   ✅   |  ❌   |   ❌    |     ✅      |   ❌    |    ❌    |
-| Edge Runtime     |  ✅   |   ✅   |  ❌   |   ✅    |     ✅      |   ✅    |    ✅    |
-| Multi-Framework  |  ✅   |   ❌   |  ❌   |   ❌    |     ❌      |   ❌    |    ✅    |
-| Zero JS Default  |  ✅   |  N/A   |  ✅   |   ❌    |     ❌      |   ⚡    |    ❌    |
-| DevTools         |  ✅   |   ❌   |  ❌   |   ❌    |     ❌      |   ❌    |    ✅    |
+| Feature          | Astro | Elysia | Fresh | Hono  | Next.js | Redwood SDK | Remix 3 | TanStack |
+| ---------------- | :---: | :----: | :---: | :---: | :-----: | :---------: | :-----: | :------: |
+| SSR              |  ✅   |  N/A   |  ✅   |  ✅   |   ✅    |     ✅      |   ✅    |    ✅    |
+| SSG              |  ✅   |  N/A   |  ✅   |  ✅   |   ✅    |     ❌      |   ❌    |    ✅    |
+| ISR              |  ❌   |  N/A   |  ❌   |  ❌   |   ✅    |     ❌      |   ❌    |    ❌    |
+| Islands          |  ✅   |  N/A   |  ✅   |  ❌   |   ❌    |     ❌      |   ❌    |    ❌    |
+| RSC              |  ❌   |  N/A   |  ❌   |  ❌   |   ✅    |     ✅      |   ❌    |    ❌    |
+| Streaming        |  ✅   |   ✅   |  ✅   |  ✅   |   ✅    |     ✅      |   ✅    |    ✅    |
+| File Routing     |  ✅   |   ❌   |  ✅   |  ❌   |   ✅    |     ❌      |   ❌    |    ✅    |
+| Type-Safe Routes |  ❌   |   ✅   |  ❌   |  ✅   |   ⚡    |     ✅      |   ✅    |    ✅    |
+| Server Actions   |  ✅   |  N/A   |  ❌   |  ❌   |   ✅    |     ✅      |   ❌    |    ⚡    |
+| WebSocket        |  ❌   |   ✅   |  ❌   |  ✅   |   ❌    |     ✅      |   ❌    |    ❌    |
+| Edge Runtime     |  ✅   |   ✅   |  ❌   |  ✅   |   ✅    |     ✅      |   ✅    |    ✅    |
+| Multi-Framework  |  ✅   |   ❌   |  ❌   |  ❌   |   ❌    |     ❌      |   ❌    |    ✅    |
+| Zero JS Default  |  ✅   |  N/A   |  ✅   | N/A   |   ❌    |     ❌      |   ⚡    |    ❌    |
+| DevTools         |  ✅   |   ❌   |  ❌   |  ❌   |   ❌    |     ❌      |   ❌    |    ✅    |
 
 ---
 
@@ -340,6 +359,7 @@ Pre-Rendering
 | Astro           | 5.16.6           | github.com/withastro/astro        | MIT     |
 | Elysia          | 1.4.19           | github.com/elysiajs/elysia        | MIT     |
 | Fresh           | 2.2.0            | github.com/denoland/fresh         | MIT     |
+| Hono            | 4.11.1           | github.com/honojs/hono            | MIT     |
 | Next.js         | 16.1.0-canary.31 | github.com/vercel/next.js         | MIT     |
 | Redwood SDK     | 1.0.0-beta.41    | github.com/redwoodjs/sdk          | MIT     |
 | Remix 3         | remix-the-web    | github.com/mjackson/remix-the-web | MIT     |
